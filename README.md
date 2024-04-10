@@ -1,4 +1,4 @@
-# PklKotlin Action
+# PklJava Action
 
 Generates Java source code for a Pkl model. Based on version 0.25.2 of the Pkl tool/lang.
 
