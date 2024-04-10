@@ -1,0 +1,19 @@
+name: 'Pkl Java'
+author: 'Emily McLean'
+description: 'Generates Java source code for a Pkl model. Based on version 0.25.2 of the Pkl tool/lang.'
+inputs:
+  input-file:
+    description: 'The Pkl file to process'
+    required: true
+  output-folder:
+    description: 'Where the resulting data will be written to.'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.input-file }}
+    - ${{ inputs.output-folder }}
+branding:
+  icon: 'cpu'
+  color: 'green'
