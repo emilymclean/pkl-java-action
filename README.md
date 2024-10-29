@@ -14,7 +14,7 @@ Generates Java source code for a Pkl model. Based on version 0.26.3 of the Pkl t
 
 ## Example usage
 ```
-uses: BenMMcLean/PklJava@v1
+uses: emilymclean/PklJava@v1
 with:
   input-file: data.pkl
   output-folder: /generated
