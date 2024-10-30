@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.gitversion.outputs.semVer }}
+      major: ${{ steps.gitversion.outputs.major }}
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -23,7 +24,6 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9.6
         with:
           useConfigFile: true
-          showConfig: true
           configFilePath: ./gitversion.yml
       - name: Display SemVer
         run: |
@@ -49,4 +49,10 @@ jobs:
           release_name: Release ${{ needs.version.outputs.version }}
           draft: false
           prerelease: ${{ github.ref == 'refs/heads/develop' }}
+      - name: Tag major
+        uses: tvdias/github-tagger@v0.0.1
+        if: github.ref == 'refs/heads/main'
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          tag: v${{ needs.version.outputs.major }}
 
