@@ -16,4 +16,5 @@ jobs:
           input-file: test/example.pkl
           output-folder: test/output
       - run: |
+          ls -lR test
           cat test/output/java/Example.java
