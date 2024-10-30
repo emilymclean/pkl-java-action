@@ -19,7 +19,7 @@ runs:
       with:
         fetch-depth: 0
     - run: |
-        docker run --rm -v "./test:/data" ghcr.io/emilymclean/pkl-codegen-kotlin:${{ inputs.pkl-version }} "/data/${{ inputs.input-file }}" "/data/${{ inputs.output-folder }}"
+        docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-kotlin:${{ inputs.pkl-version }} "/data/${{ inputs.input-file }}" "/data/${{ inputs.output-folder }}"
       shell: bash
 branding:
   icon: 'cpu'
