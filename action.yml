@@ -8,12 +8,19 @@ inputs:
   output-folder:
     description: 'Where the resulting data will be written to.'
     required: true
+  pkl-version:
+    description: The pkl version to install.
+    required: false
+    default: '0.26.3'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.input-file }}
-    - ${{ inputs.output-folder }}
+  using: 'composite'
+  steps:
+    - uses: "actions/checkout@v3"
+      with:
+        fetch-depth: 0
+    - run: |
+        docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-kotlin:${{ inputs.pkl-version }} "/data/${{ inputs.input-file }}" "/data/${{ inputs.output-folder }}"
+      shell: bash
 branding:
   icon: 'cpu'
   color: 'green'
