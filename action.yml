@@ -16,8 +16,7 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        args="${{inputs.input-file}}"
-        eval "args=($args)"
+        args=("${{inputs.input-file}}")
 
         input_files=""
         for file in "${args[@]}"; do
