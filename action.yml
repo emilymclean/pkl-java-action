@@ -2,7 +2,7 @@ name: 'Pkl Java'
 author: 'Emily McLean'
 description: 'Generates Java source code for a Pkl model.'
 inputs:
-  input-files:
+  input-file:
     description: 'The Pkl files to process, separated by commas.'
     required: true
   output-folder:
@@ -16,7 +16,7 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        IFS=',' read -ra args <<< "${{ inputs.input-files }}"
+        IFS=',' read -ra args <<< "${{ inputs.input-file }}"
 
         input_files=()
         for file in "${args[@]}"; do
