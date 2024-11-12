@@ -1,9 +1,9 @@
 name: 'Pkl Java'
 author: 'Emily McLean'
-description: 'Generates Java source code for a Pkl model. Based on version 0.26.3 of the Pkl tool/lang.'
+description: 'Generates Java source code for a Pkl model.'
 inputs:
   input-file:
-    description: 'The Pkl file to process'
+    description: 'The Pkl files to process, separated by commas.'
     required: true
   output-folder:
     description: 'Where the resulting data will be written to.'
@@ -11,12 +11,19 @@ inputs:
   pkl-version:
     description: The pkl version to install.
     required: false
-    default: '0.26.3'
+    default: '0.27.0'
 runs:
   using: 'composite'
   steps:
     - run: |
-        docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-java:${{ inputs.pkl-version }} "/data/${{ inputs.input-file }}" "/data/${{ inputs.output-folder }}"
+        IFS=',' read -ra args <<< "${{ inputs.input-file }}"
+
+        input_files=()
+        for file in "${args[@]}"; do
+            input_files+=("/data/$(echo "$file" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')")
+        done
+
+        docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-java:${{ inputs.pkl-version }}-1 "${input_files[@]}" -o "/data/${{ inputs.output-folder }}"
       shell: bash
 branding:
   icon: 'cpu'
