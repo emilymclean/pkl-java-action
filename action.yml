@@ -3,7 +3,7 @@ author: 'Emily McLean'
 description: 'Generates Java source code for a Pkl model. Based on version 0.26.3 of the Pkl tool/lang.'
 inputs:
   input-file:
-    description: 'The Pkl file to process'
+    description: 'The Pkl files to process'
     required: true
   output-folder:
     description: 'Where the resulting data will be written to.'
@@ -16,7 +16,15 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-java:${{ inputs.pkl-version }} "/data/${{ inputs.input-file }}" "/data/${{ inputs.output-folder }}"
+        args="${{inputs.input-file}}"
+        eval "args=($args)"
+
+        input_files=""
+        for file in "${args[@]}"; do
+          input_files+=" \"/data/$file\""
+        done
+
+        docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-java:${{ inputs.pkl-version }}-1 $input_files -o "/data/${{ inputs.output-folder }}"
       shell: bash
 branding:
   icon: 'cpu'

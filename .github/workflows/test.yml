@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
       - uses: ./
         with:
-          input-file: test/example.pkl
+          input-file: test/example.pkl "test/folder with space/test.pkl"
           output-folder: test/output
       - run: |
           ls -lR test
