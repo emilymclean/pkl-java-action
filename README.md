@@ -6,7 +6,7 @@ Generates Java source code for a Pkl model.
 
 | Input              	| Required 	| Description                                                                                                       	| Default  	|
 |--------------------	|----------	|-------------------------------------------------------------------------------------------------------------------	|----------	|
-| `input-file`       	| ✅        	| The pkl file(s) to process. Paths should be separated by spaces, paths containing spaces should be quoted           |           |
+| `input-files`       | ✅        	| The pkl file(s) to process, separated by commas.                                                                    |           |
 | `output-folder` 	  | ✅       	| Where the resulting binding will be written to.                                                        	            |    	      |
 | `pkl-version`      	|          	| The pkl version to use       	                                                                                      | 0.27.0    |
 
@@ -14,6 +14,6 @@ Generates Java source code for a Pkl model.
 ```
 uses: emilymclean/pkl-java-action@v2
 with:
-  input-file: data.pkl
+  input-files: data.pkl
   output-folder: /generated
 ```

@@ -2,8 +2,8 @@ name: 'Pkl Java'
 author: 'Emily McLean'
 description: 'Generates Java source code for a Pkl model.'
 inputs:
-  input-file:
-    description: 'The Pkl files to process'
+  input-files:
+    description: 'The Pkl files to process, separated by commas.'
     required: true
   output-folder:
     description: 'Where the resulting data will be written to.'
@@ -16,11 +16,11 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        args=(${{inputs.input-file}})
+        IFS=',' read -ra args <<< "${{ inputs.input-files }}"
 
         input_files=()
         for file in "${args[@]}"; do
-          input_files+=("/data/$file")
+            input_files+=("/data/$(echo "$file" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')")
         done
 
         docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-java:${{ inputs.pkl-version }}-1 "${input_files[@]}" -o "/data/${{ inputs.output-folder }}"
