@@ -1,6 +1,6 @@
 name: 'Pkl Java'
 author: 'Emily McLean'
-description: 'Generates Java source code for a Pkl model. Based on version 0.26.3 of the Pkl tool/lang.'
+description: 'Generates Java source code for a Pkl model.'
 inputs:
   input-file:
     description: 'The Pkl files to process'
@@ -11,7 +11,7 @@ inputs:
   pkl-version:
     description: The pkl version to install.
     required: false
-    default: '0.26.3'
+    default: '0.27.0'
 runs:
   using: 'composite'
   steps:
