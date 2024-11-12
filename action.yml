@@ -18,12 +18,12 @@ runs:
     - run: |
         args=("${{inputs.input-file}}")
 
-        input_files=""
+        input_files=()
         for file in "${args[@]}"; do
-          input_files+=" \"/data/$file\""
+          input_files+=("/data/$file")
         done
 
-        docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-java:${{ inputs.pkl-version }}-1 $input_files -o "/data/${{ inputs.output-folder }}"
+        docker run --rm -v "./:/data" ghcr.io/emilymclean/pkl-codegen-java:${{ inputs.pkl-version }}-1 ${input_files[@]} -o "/data/${{ inputs.output-folder }}"
       shell: bash
 branding:
   icon: 'cpu'
