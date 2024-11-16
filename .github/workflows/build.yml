@@ -49,10 +49,7 @@ jobs:
           release_name: Release ${{ needs.version.outputs.version }}
           draft: false
           prerelease: ${{ github.ref == 'refs/heads/develop' }}
-      - name: Tag major
-        uses: tvdias/github-tagger@v0.0.1
+      - uses: jimeh/update-tags-action@v1
         if: github.ref == 'refs/heads/main'
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: v${{ needs.version.outputs.major }}
-
+          tags: v${{ needs.version.outputs.major }}
